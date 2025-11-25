@@ -1,7 +1,7 @@
 import argparse
 import pandas as pd
 from rdkit import Chem
-from rdkit.Chem import Crippen
+from rdkit.Chem import Crippen, Descriptors
 
 
 def compute_logp(smiles: str):
@@ -10,6 +10,11 @@ def compute_logp(smiles: str):
         return None
     return Crippen.MolLogP(mol)
 
+def compute_mw(smiles: str):
+    mol = Chem.MolFromSmiles(smiles)
+    if mol is None:
+        return None
+    return Descriptors.MolWt(mol)
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -47,8 +52,12 @@ def main():
             f"SMILES column '{args.smiles_column}' not found in input file. "
             f"Available columns: {list(df.columns)}"
         )
+   
+    smiles_series = df[args.smiles_column]
 
+    #Compute properties
     df["logP"] = df[args.smiles_column].apply(compute_logp)
+    df["mw"] = smiles_series.apply(compute_mw)
 
     print(f"Writing output to: {args.output}")
     df.to_csv(args.output, index=False)
