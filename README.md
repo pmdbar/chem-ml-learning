@@ -1,30 +1,50 @@
 # ChemML Learning Project
 
-This repository contains my first steps toward becoming an AI/ML Engineer in the small-molecule drug discovery space.  
-It includes tools, scripts, and experiments built during Week 1 of my 24-week curriculum.
+This repository contains tools and prototypes developed as part of my cheminformatics and AI/ML engineering training. The focus is on small-molecule drug discovery workflows, including property calculation, molecular descriptors, and RDKit-based utilities.
 
 ---
 
-## 🚀 Project Overview
-
-This project holds:
-- A clean Conda environment (`chemml`)
-- Python warm-up exercises
-- RDKit-based cheminformatics utilities
-- A fully functional **command-line tool** for computing logP from SMILES in a CSV file
-
-The goal of this repo is to develop strong software engineering fundamentals while working with real chemistry data.
+## **Features**
+- RDKit-based small-molecule property computation
+- Command-line tool (CLI) supporting:
+  - **logP** (Wildman–Crippen)
+  - **Molecular Weight (MW)**
+- CSV → CSV processing pipeline
+- Modular Python code in a standard `src/` package layout
+- Automated tests (pytest)
+- Fully version-controlled with Git + GitHub
 
 ---
 
-## 🧪 Environment Setup
-
-Create and activate the environment:
-
+## **Installation**
 ```bash
 conda create -n chemml python=3.10
 conda activate chemml
-```bash
-conda install numpy pandas -c conda-forge
-conda install rdkit -c conda-forge
+conda install numpy pandas rdkit -c conda-forge
+```
+---
 
+## **Usage**
+```bash
+python -m chemml.compute_logp     --input molecules.csv     --output molecules_with_props.csv
+```
+
+### Output CSV Columns
+- smiles  
+- name  
+- logP  
+- mw  
+
+---
+
+## **Project Purpose**
+This project serves as an evolving sandbox for:
+- Python engineering fundamentals
+- Package structure & CLI design
+- Testing and reproducibility
+- Cheminformatics workflows
+- Property calculation pipelines
+
+As the AI/ML curriculum progresses, this repository will expand with new features, modules, and experiments.
+
+---
