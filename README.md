@@ -9,8 +9,10 @@ This repository contains tools and prototypes developed as part of my cheminform
 - Command-line tool (CLI) supporting:
   - **logP** (Wildman–Crippen)
   - **Molecular Weight (MW)**
+  - **Canonical SMILES**
 - CSV → CSV processing pipeline
 - Modular Python code in a standard `src/` package layout
+- Editable install ('pip install -e .') so ''chemml' can be imported anywhere
 - Automated tests (pytest)
 - Fully version-controlled with Git + GitHub
 
@@ -30,10 +32,11 @@ python -m chemml.compute_logp     --input molecules.csv     --output molecules_w
 ```
 
 ### Output CSV Columns
-- smiles  
+- SMILES  
 - name  
 - logP  
 - mw  
+- canonical_SMILES
 
 ---
 
