@@ -16,6 +16,13 @@ def compute_mw(smiles: str):
         return None
     return Descriptors.MolWt(mol)
 
+def compute_canonical_smiles(smiles: str):
+    mol = Chem.MolFromSmiles(smiles)
+    if mol is None:
+        return None
+    # RDKit canonical SMILES
+    return Chem.MolToSmiles(mol, canonical=True)
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description="Compute logP for molecules in a CSV using RDKit."
@@ -58,6 +65,7 @@ def main():
     #Compute properties
     df["logP"] = df[args.smiles_column].apply(compute_logp)
     df["mw"] = smiles_series.apply(compute_mw)
+    df["canonical_smiles"] = smiles_series.apply(compute_canonical_smiles)
 
     print(f"Writing output to: {args.output}")
     df.to_csv(args.output, index=False)

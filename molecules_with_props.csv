@@ -1,4 +1,4 @@
-smiles,name,logP,mw
-c1ccccc1,benzene,1.6866,78.11399999999999
-Cc1ccccc1,toluene,1.99502,92.14099999999999
-c1ccc(cc1)O,phenol,1.3921999999999997,94.11299999999997
+smiles,name,logP,mw,canonical_smiles
+c1ccccc1,benzene,1.6866,78.11399999999999,c1ccccc1
+Cc1ccccc1,toluene,1.99502,92.14099999999999,Cc1ccccc1
+c1ccc(cc1)O,phenol,1.3921999999999997,94.11299999999997,Oc1ccccc1
