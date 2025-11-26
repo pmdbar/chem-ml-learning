@@ -1,13 +1,4 @@
-import os
-import sys
 import math
-
-# Add src/ to Python path
-current_dir = os.path.dirname(__file__)
-project_root = os.path.abspath(os.path.join(current_dir, ".."))
-src_path = os.path.join(project_root, "src")
-sys.path.append(src_path)
-
 from rdkit import Chem
 from rdkit.Chem import Crippen
 from chemml.compute_logp import compute_logp
