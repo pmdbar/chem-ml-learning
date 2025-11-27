@@ -1,31 +1,13 @@
 import argparse
 import pandas as pd
-from rdkit import Chem
-from rdkit.Chem import Crippen, Descriptors
 
+from  chemml import properties as props
 
-def compute_logp(smiles: str):
-    mol = Chem.MolFromSmiles(smiles)
-    if mol is None:
-        return None
-    return Crippen.MolLogP(mol)
-
-def compute_mw(smiles: str):
-    mol = Chem.MolFromSmiles(smiles)
-    if mol is None:
-        return None
-    return Descriptors.MolWt(mol)
-
-def compute_canonical_smiles(smiles: str):
-    mol = Chem.MolFromSmiles(smiles)
-    if mol is None:
-        return None
-    # RDKit canonical SMILES
-    return Chem.MolToSmiles(mol, canonical=True)
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Compute logP for molecules in a CSV using RDKit."
+        description=("Compute small-molecule properties for molecules in a CSV using RDKit."
+        )
     )
     parser.add_argument(
         "--input",
@@ -62,10 +44,14 @@ def main():
    
     smiles_series = df[args.smiles_column]
 
-    #Compute properties
-    df["logP"] = df[args.smiles_column].apply(compute_logp)
-    df["mw"] = smiles_series.apply(compute_mw)
-    df["canonical_smiles"] = smiles_series.apply(compute_canonical_smiles)
+    #Wire SMILES -> core property functions
+    df["logP"] = smiles_series.apply(props.compute_logp)
+    df["mw"] = smiles_series.apply(props.compute_mw)
+    df["canonical_smiles"] = smiles_series.apply(props.compute_canonical_smiles)
+    df["tpsa"] = smiles_series.apply(props.compute_tpsa)
+    #df["hbd"] = smiles_series.apply(props.compute_hbd)
+    #df["hba"] = smiles_series.apply(props.compute_hba)
+    #df["rotatable_bonds"] = smiles_series.apply(props.compute_rotatable_bonds)
 
     print(f"Writing output to: {args.output}")
     df.to_csv(args.output, index=False)
