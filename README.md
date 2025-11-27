@@ -47,6 +47,7 @@ For feature-set basic:
 - logP  
 - mw  
 - canonical_SMILES
+
 For feature-set extended:
 - SMILES  
 - name  
