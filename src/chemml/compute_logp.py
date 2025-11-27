@@ -27,6 +27,18 @@ def parse_args():
         default="smiles",
         help="Name of the SMILES column in the input CSV (default: smiles).",
     )
+    parser.add_argument(
+        "--feature-set",
+        "-f",
+        choices=["basic", "extended"],
+        default="extended",
+        help=(
+            "Which property set to compute: "
+            "'basic' (logP, MW, canonical_smiles) or "
+            "'extended' (adds TPSA, HBD, HBA, rotatable_bonds). "
+            "Default: extended."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -44,14 +56,16 @@ def main():
    
     smiles_series = df[args.smiles_column]
 
-    #Wire SMILES -> core property functions
+    #Always compute basic properties
     df["logP"] = smiles_series.apply(props.compute_logp)
     df["mw"] = smiles_series.apply(props.compute_mw)
     df["canonical_smiles"] = smiles_series.apply(props.compute_canonical_smiles)
-    df["tpsa"] = smiles_series.apply(props.compute_tpsa)
-    df["hbd"] = smiles_series.apply(props.compute_hbd)
-    df["hba"] = smiles_series.apply(props.compute_hba)
-    df["rotatable_bonds"] = smiles_series.apply(props.compute_rotatable_bonds)
+    #Optionally compute extended properties
+    if args.feature_set == "extended":
+        df["tpsa"] = smiles_series.apply(props.compute_tpsa)
+        df["hbd"] = smiles_series.apply(props.compute_hbd)
+        df["hba"] = smiles_series.apply(props.compute_hba)
+        df["rotatable_bonds"] = smiles_series.apply(props.compute_rotatable_bonds)
 
     print(f"Writing output to: {args.output}")
     df.to_csv(args.output, index=False)
