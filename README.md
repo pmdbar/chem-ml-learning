@@ -7,9 +7,8 @@ This repository contains tools and prototypes developed as part of my cheminform
 ## **Features**
 - RDKit-based small-molecule property computation
 - Command-line tool (CLI) supporting:
-  - **logP** (Wildman–Crippen)
-  - **Molecular Weight (MW)**
-  - **Canonical SMILES**
+  - **Basic Properties** (Wildman-Crippen logP, MW, Canonical SMILES) 
+  - **Extended descriptors** (TPSA,  HBS,  HBA, rotatable bonds)
 - CSV → CSV processing pipeline
 - Modular Python code in a standard `src/` package layout
 - Editable install ('pip install -e .') so ''chemml' can be imported anywhere
@@ -27,17 +26,37 @@ conda install numpy pandas rdkit -c conda-forge
 ---
 
 ## **Usage**
+### Basic Properties only
 ```bash
-python -m chemml.compute_logp     --input molecules.csv     --output molecules_with_props.csv
+python -m chemml.compute_logp \
+    --input molecules.csv \
+    --output molecules_basic.csv \
+    --feature-set basic
 ```
-
+### Extended Properties
+```bash
+python -m chemml.compute_logp \
+    --input molecules.csv \
+    --output molecules_extended.csv \
+    --feature-set extended
+```
 ### Output CSV Columns
+For feature-set basic:
 - SMILES  
 - name  
 - logP  
 - mw  
 - canonical_SMILES
-
+For feature-set extended:
+- SMILES  
+- name  
+- logP  
+- mw  
+- canonical_SMILES
+- tpsa
+- hbd
+- hba
+- rotatable_bonds
 ---
 
 ## **Project Purpose**
