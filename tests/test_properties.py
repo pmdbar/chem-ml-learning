@@ -32,3 +32,33 @@ def test_canonical_smiles_roundtrip():
     smiles = "C1=CC=CC=C1"  # non-canonical benzene
     canon = props.compute_canonical_smiles(smiles)
     assert canon == "c1ccccc1"
+
+def test_tpsa_valid_smiles():
+    value = props.compute_tpsa("c1ccccc1")
+    assert value is not None
+    assert value >= 0
+
+
+def test_hbd_valid_smiles():
+    value = props.compute_hbd("c1ccccc1")
+    assert value is not None
+    assert value == 0  # benzene has no H-bond donors
+
+
+def test_hba_valid_smiles():
+    value = props.compute_hba("c1ccccc1")
+    assert value is not None
+    assert value == 0  # benzene has no H-bond acceptors
+
+
+def test_rotatable_bonds_valid_smiles():
+    value = props.compute_rotatable_bonds("c1ccccc1")
+    assert value is not None
+    assert value == 0
+
+def test_invalid_smiles_returns_none_for_all():
+    invalid = "not_a_smiles"
+    assert props.compute_tpsa(invalid) is None
+    assert props.compute_hbd(invalid) is None
+    assert props.compute_hba(invalid) is None
+    assert props.compute_rotatable_bonds(invalid) is None

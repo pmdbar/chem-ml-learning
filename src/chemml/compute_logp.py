@@ -49,9 +49,9 @@ def main():
     df["mw"] = smiles_series.apply(props.compute_mw)
     df["canonical_smiles"] = smiles_series.apply(props.compute_canonical_smiles)
     df["tpsa"] = smiles_series.apply(props.compute_tpsa)
-    #df["hbd"] = smiles_series.apply(props.compute_hbd)
-    #df["hba"] = smiles_series.apply(props.compute_hba)
-    #df["rotatable_bonds"] = smiles_series.apply(props.compute_rotatable_bonds)
+    df["hbd"] = smiles_series.apply(props.compute_hbd)
+    df["hba"] = smiles_series.apply(props.compute_hba)
+    df["rotatable_bonds"] = smiles_series.apply(props.compute_rotatable_bonds)
 
     print(f"Writing output to: {args.output}")
     df.to_csv(args.output, index=False)

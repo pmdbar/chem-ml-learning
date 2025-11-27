@@ -39,7 +39,7 @@ def compute_tpsa(smiles: str) -> Optional[float]:
     return Descriptors.TPSA(mol)
 
 
-#def compute_hbd(smiles: str) -> Optional[int]:
+def compute_hbd(smiles: str) -> Optional[int]:
     """Number of H-bond donors, or None if invalid."""
     mol = _mol_from_smiles(smiles)
     if mol is None:
@@ -47,7 +47,7 @@ def compute_tpsa(smiles: str) -> Optional[float]:
     return Lipinski.NumHDonors(mol)
 
 
-#def compute_hba(smiles: str) -> Optional[int]:
+def compute_hba(smiles: str) -> Optional[int]:
     """Number of H-bond acceptors, or None if invalid."""
     mol = _mol_from_smiles(smiles)
     if mol is None:
@@ -55,7 +55,7 @@ def compute_tpsa(smiles: str) -> Optional[float]:
     return Lipinski.NumHAcceptors(mol)
 
 
-#def compute_rotatable_bonds(smiles: str) -> Optional[int]:
+def compute_rotatable_bonds(smiles: str) -> Optional[int]:
     """Number of rotatable bonds, or None if invalid."""
     mol = _mol_from_smiles(smiles)
     if mol is None:
