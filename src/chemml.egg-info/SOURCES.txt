@@ -1,0 +1,10 @@
+README.txt
+setup.py
+src/chemml/__init__.py
+src/chemml/compute_logp.py
+src/chemml/warmup.py
+src/chemml.egg-info/PKG-INFO
+src/chemml.egg-info/SOURCES.txt
+src/chemml.egg-info/dependency_links.txt
+src/chemml.egg-info/top_level.txt
+tests/test_compute_logp.py
